@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "history": "^4.9.0",
     "react": "^16.8.6",
+    "react-d3-tree": "^1.12.3",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
     "react-router-redux": "^4.0.8",
