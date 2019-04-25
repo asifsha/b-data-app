@@ -58,7 +58,7 @@ class ChartsExport extends Component {
     return (
       <div >
 
-        <div id="treeWrapper"  style={{ width: '500px', height: '500px' }}>
+        <div id="treeWrapper"  style={{ width: '75em', height: '50em' }}>
 
           <Tree data={this.props.data} orientation="vertical" />
 
@@ -97,29 +97,31 @@ function mapStateToProps(state, ownProps) {
   console.log('mapstatetoprops');
   //console.log(state);
 
-  let treeData=[
-    {
-      name: 'Top Level',
-      attributes: {
-        keyA: 'val A',
-        keyB: 'val B',
-        keyC: 'val C',
-      },
-      children: [
-        {
-          name: 'Level 2: A',
-          attributes: {
-            keyA: 'val A',
-            keyB: 'val B',
-            keyC: 'val C',
-          },
-        },
-        {
-          name: 'Level 2: B',
-        },
-      ],
-    },
-  ];
+  // let treeData=[
+  //   {
+  //     name: 'Top Level',
+  //     attributes: {
+  //       keyA: 'val A',
+  //       keyB: 'val B',
+  //       keyC: 'val C',
+  //     },
+  //     children: [
+  //       {
+  //         name: 'Level 2: A',
+  //         attributes: {
+  //           keyA: 'val A',
+  //           keyB: 'val B',
+  //           keyC: 'val C',
+  //         },
+  //       },
+  //       {
+  //         name: 'Level 2: B',
+  //       },
+  //     ],
+  //   },
+  // ];
+
+  let treeData=[{ name:''}];
   let d = state.data;
   let totalRecords = 0;
   let icoRecords = 0;
