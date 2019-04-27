@@ -15,13 +15,16 @@ import {
 
 
 import Tree from 'react-d3-tree';
+import Select from 'react-select';
 
 
 class ChartsExport extends Component {
 
   constructor(props, context) {
     super(props, context);
-
+    this.state = {
+      selectedOption: null,
+    }
 
   }
 
@@ -29,38 +32,37 @@ class ChartsExport extends Component {
     this.props.actions.GetData();
   }
 
-  customizedTick(props) {
-    const { x, y, index, payload, width } = props;
-    //console.log(props, payload);
-    if (payload.value !== 'ETH') {
-      return (
-        <g>
-          <line x1={x - 1.5 * width} y1={y} x2={x - 1.5 * width} y2={y + 10} />
-          <text x={x} y={y} textAnchor="middle" dominantBaseline="hanging">
-            {payload.value}
-          </text>
-        </g>
-      );
-    }
+
+
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
   }
-
-  getsqrt(value) {
-    return Math.sqrt(value);
-  }
-
-
 
 
   render() {
     console.log(this.props.data);
-    
+
+    const { selectedOption } = this.state;
+
+    const options = [
+      { value: 'chocolate', label: 'Chocolate' },
+      { value: 'strawberry', label: 'Strawberry' },
+      { value: 'vanilla', label: 'Vanilla' }
+    ];
+
 
     return (
-      <div >
+      <div >  
 
-        <div id="treeWrapper"  style={{ width: '75em', height: '50em' }}>
 
-          <Tree data={this.props.data} orientation="vertical" />
+        <div id="treeWrapper" style={{ width: '75em', height: '50em', overflow : 'scroll' }}>
+
+          <Tree data={this.props.data} useCollapseData={true}
+                  translate={{x:150, y:250}}
+                  
+          />
 
         </div>
       </div>
@@ -121,7 +123,7 @@ function mapStateToProps(state, ownProps) {
   //   },
   // ];
 
-  let treeData=[{ name:''}];
+  let treeData = [{ name: '' }];
   let d = state.data;
   let totalRecords = 0;
   let icoRecords = 0;
@@ -136,9 +138,9 @@ function mapStateToProps(state, ownProps) {
     icoRecords = d.ico.length;
     finalIcoRecords = d.finalIco.length;
     totalRecords = preIcoRecords + icoRecords + finalIcoRecords;
-     preIcoGrouped = groupBy(d.preIco, cur => cur.currency);
-     icoGrouped = groupBy(d.ico, cur => cur.currency);
-     finalIcoGrouped = groupBy(d.finalIco, cur => cur.currency);
+    preIcoGrouped = groupBy(d.preIco, cur => cur.currency);
+    icoGrouped = groupBy(d.ico, cur => cur.currency);
+    finalIcoGrouped = groupBy(d.finalIco, cur => cur.currency);
     console.log(preIcoGrouped);
     //const key = Array.from(grouped.keys())[0]
     //console.log(key);
@@ -148,87 +150,81 @@ function mapStateToProps(state, ownProps) {
     treeData = [
       {
         name: 'Data',
+        
         attributes: {
           'Total Records': totalRecords
-  
+
         },
         children: [{
           name: 'PreIco',
           attributes: {
-            'Records': preIcoRecords
-  
+            'Records': preIcoRecords            
           },
-          children:[]
+          _collapsed: true,
+          children: []
         },
         {
           name: 'Ico',
           attributes: {
             'Records': icoRecords
           },
-          children:[]
+          _collapsed: true,
+          children: []
         },
         {
           name: 'FinalIco',
           attributes: {
             'Records': finalIcoRecords
-  
+
           },
-          children:[]
+          _collapsed: true,
+          children: []
         }
         ],
-  
+
       }
     ];
 
     console.log(treeData);
     for (var [key, value] of preIcoGrouped) {
       //console.log(key + ' = ' + value);
-      let obj={name:key,attributes:{ 'Records': value.length } };
+      let values=(value.map(function(o) { return o.value; }));
+      let min = Math.min( ...values ).toExponential();
+      let max=Math.max( ...values ).toExponential();
+      let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount' : min, 'Max Amount' : max } };
       treeData[0].children[0].children.push(obj);
       
+      console.log(min);
+      console.log(max);
+      //treeData[0].children[0].attributes=({Min : min});
+      //treeData[0].children[0].attributes=({Max : max});
+
     }
 
     for (var [key, value] of icoGrouped) {
       //console.log(key + ' = ' + value);
-      let obj={name:key,attributes:{ 'Records': value.length } };
+      let values=(value.map(function(o) { return o.value; }));
+      let min = Math.min( ...values ).toExponential();
+      let max=Math.max( ...values ).toExponential();
+      let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount' : min, 'Max Amount' : max  } };
       treeData[0].children[1].children.push(obj);
-      
+
     }
 
     for (var [key, value] of finalIcoGrouped) {
-      //console.log(key + ' = ' + value);
-      let obj={name:key,attributes:{ 'Records': value.length } };
+      let values=(value.map(function(o) { return o.value; }));
+      let min = Math.min( ...values ).toExponential();
+      let max=Math.max( ...values ).toExponential();
+      let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount' : min, 'Max Amount' : max } };
       treeData[0].children[2].children.push(obj);
-      
+
     }
   }
 
-  
+
+
 
   
-  const myTreeData = [
-    {
-      name: 'Top Level',
-      attributes: {
-        keyA: 'val A',
-        keyB: 'val B',
-        keyC: 'val C',
-      },
-      children: [
-        {
-          name: 'Level 2: A',
-          attributes: {
-            keyA: 'val A',
-            keyB: 'val B',
-            keyC: 'val C',
-          },
-        },
-        {
-          name: 'Level 2: B',
-        },
-      ],
-    },
-  ];
   //console.log(d.preIco);
   return {
     data: treeData
@@ -250,3 +246,7 @@ export const Charts = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ChartsExport)
+
+const filterDropDown = {
+  width: '15em'
+};
