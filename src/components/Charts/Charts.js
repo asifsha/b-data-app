@@ -54,14 +54,31 @@ class ChartsExport extends Component {
 
 
     return (
-      <div >  
+      <div >
 
 
-        <div id="treeWrapper" style={{ width: '75em', height: '50em', overflow : 'scroll' }}>
+        <div id="treeWrapper" style={{ width: '75em', height: '50em', overflow: 'scroll' }}>
 
           <Tree data={this.props.data} useCollapseData={true}
-                  translate={{x:150, y:250}}
-                  
+            translate={{ x: 150, y: 250 }}
+            styles={
+              {
+                links: { stroke: '#FFFFFF' },
+                nodes: {
+                  node: {
+                    circle: { stroke: '#FFFFFF', fill: '#FFFFFF' },
+                    name: { stroke: '#FFFFFF', fill: '#FFFFFF' },
+                    attributes: { stroke: '#A3A6AD' }
+                  },
+                  leafNode : {
+                    circle: { stroke: '#FFFFFF', fill: '#18223C' },
+                    name: { stroke: '#FFFFFF',  },
+                    attributes: { stroke: '#A3A6AD' }
+                  }
+                }
+              }
+            }
+
           />
 
         </div>
@@ -150,7 +167,7 @@ function mapStateToProps(state, ownProps) {
     treeData = [
       {
         name: 'Data',
-        
+
         attributes: {
           'Total Records': totalRecords
 
@@ -158,7 +175,7 @@ function mapStateToProps(state, ownProps) {
         children: [{
           name: 'PreIco',
           attributes: {
-            'Records': preIcoRecords            
+            'Records': preIcoRecords
           },
           _collapsed: true,
           children: []
@@ -188,12 +205,12 @@ function mapStateToProps(state, ownProps) {
     console.log(treeData);
     for (var [key, value] of preIcoGrouped) {
       //console.log(key + ' = ' + value);
-      let values=(value.map(function(o) { return o.value; }));
-      let min = Math.min( ...values ).toExponential();
-      let max=Math.max( ...values ).toExponential();
-      let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount' : min, 'Max Amount' : max } };
+      let values = (value.map(function (o) { return o.value; }));
+      let min = Math.min(...values).toExponential();
+      let max = Math.max(...values).toExponential();
+      let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount': min, 'Max Amount': max } };
       treeData[0].children[0].children.push(obj);
-      
+
       console.log(min);
       console.log(max);
       //treeData[0].children[0].attributes=({Min : min});
@@ -203,19 +220,19 @@ function mapStateToProps(state, ownProps) {
 
     for (var [key, value] of icoGrouped) {
       //console.log(key + ' = ' + value);
-      let values=(value.map(function(o) { return o.value; }));
-      let min = Math.min( ...values ).toExponential();
-      let max=Math.max( ...values ).toExponential();
-      let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount' : min, 'Max Amount' : max  } };
+      let values = (value.map(function (o) { return o.value; }));
+      let min = Math.min(...values).toExponential();
+      let max = Math.max(...values).toExponential();
+      let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount': min, 'Max Amount': max } };
       treeData[0].children[1].children.push(obj);
 
     }
 
     for (var [key, value] of finalIcoGrouped) {
-      let values=(value.map(function(o) { return o.value; }));
-      let min = Math.min( ...values ).toExponential();
-      let max=Math.max( ...values ).toExponential();
-      let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount' : min, 'Max Amount' : max } };
+      let values = (value.map(function (o) { return o.value; }));
+      let min = Math.min(...values).toExponential();
+      let max = Math.max(...values).toExponential();
+      let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount': min, 'Max Amount': max } };
       treeData[0].children[2].children.push(obj);
 
     }
@@ -224,7 +241,7 @@ function mapStateToProps(state, ownProps) {
 
 
 
-  
+
   //console.log(d.preIco);
   return {
     data: treeData
