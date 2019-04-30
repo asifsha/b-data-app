@@ -15,10 +15,10 @@ import {
 
 
 import Tree from 'react-d3-tree';
-import Select from 'react-select';
 
 
-class ChartsExport extends Component {
+
+export class ChartsExport extends Component {
 
   constructor(props, context) {
     super(props, context);
@@ -29,6 +29,7 @@ class ChartsExport extends Component {
   }
 
   componentDidMount() {
+    if(this.props.actions!==undefined)
     this.props.actions.GetData();
   }
 
