@@ -16,8 +16,7 @@ export class ChartsExport extends Component {
   }  
 
   render() {
-    console.log(this.props.data);
-
+    
     return (
       <div >
 
@@ -71,8 +70,7 @@ function groupBy(list, keyGetter) {
 
 function mapStateToProps(state, ownProps) {
   
-  console.log('mapstatetoprops');
-  
+    
   let treeData = [{ name: '' }];
   let d = state.data;
   let totalRecords = 0;
@@ -82,7 +80,7 @@ function mapStateToProps(state, ownProps) {
   let preIcoGrouped, icoGrouped, finalIcoGrouped;
 
   if (d !== undefined && d.preIco !== undefined) {
-    console.log(d.preIco.length);
+    
 
     preIcoRecords = d.preIco.length;
     icoRecords = d.ico.length;
@@ -91,7 +89,7 @@ function mapStateToProps(state, ownProps) {
     preIcoGrouped = groupBy(d.preIco, cur => cur.currency);
     icoGrouped = groupBy(d.ico, cur => cur.currency);
     finalIcoGrouped = groupBy(d.finalIco, cur => cur.currency);
-    console.log(preIcoGrouped);
+    
     
     treeData = [
       {
@@ -131,7 +129,7 @@ function mapStateToProps(state, ownProps) {
       }
     ];
 
-    console.log(treeData);
+    
     for (var [key, value] of preIcoGrouped) {
       
       let values = (value.map(function (o) { return o.value; }));
@@ -139,9 +137,6 @@ function mapStateToProps(state, ownProps) {
       let max = Math.max(...values).toExponential();
       let obj = { name: key, attributes: { 'Records': value.length, 'Min Amount': min, 'Max Amount': max } };
       treeData[0].children[0].children.push(obj);
-
-        
-
     }
 
     for (var [keyIco, valueIco] of icoGrouped) {

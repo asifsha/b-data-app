@@ -9,8 +9,7 @@ export default class ServiceApi {
 
 
             axios.get(ServiceApi.baseUrl)
-                .then(function (response) {
-                    console.log(response);
+                .then(function (response) {                    
                     if (response.data != null)
                         resolve(response.data);
                     resolve({});
