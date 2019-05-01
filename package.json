@@ -2,11 +2,13 @@
   "name": "b-data-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://asifsha.github.io/b-data-app",
   "dependencies": {
     "axios": "^0.18.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "fetch-mock": "^7.3.3",
+    "gh-pages": "^2.0.1",
     "history": "^4.9.0",
     "moxios": "^0.4.0",
     "node-fetch": "^2.4.1",
@@ -26,7 +28,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
