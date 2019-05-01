@@ -10,5 +10,5 @@ the app is deployed at
 
 https://asifsha.github.io/b-data-app/
 
-The chart is showing the data, divided into tree structure.
+The chart is showing the data, as a tree structure. Nodes also showing total number of records in that category.
 
