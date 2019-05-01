@@ -10,4 +10,5 @@ the app is deployed at
 
 https://asifsha.github.io/b-data-app/
 
+The chart is showing the data, divided into tree structure.
 
