@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://asifsha.github.io/b-data-app",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "fetch-mock": "^7.3.3",
